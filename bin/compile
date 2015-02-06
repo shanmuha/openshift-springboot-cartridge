@@ -1,0 +1,26 @@
+#!/bin/bash
+#
+# usage: bin/compile <build-dir>
+
+set -eo pipefail
+
+mkdir -p "$1/out" "$1/src"
+bin_dir=$(cd "$1/out" && pwd)
+install_dir=$OPENSHIFT_SPRINGBOOT_DIR
+export PATH=$PATH:/sbin
+
+install_JDK8() {
+	echo "---->Downloading java 1.8.31"
+	
+	cd $bin_dir
+	curl -LO -H "Cookie: oraclelicense=accept-securebackup-cookie"  http://download.oracle.com/otn-pub/java/jdk/8u31-b13/$jdk-archive
+	if [ ! -d "$install_dir/jdk" ]; then
+    	mkdir $install_dir/jdk
+    fi
+	cd $install_dir/jdk
+	tar xvfz $bin_dir/$jdk_archive
+	export PATH=$install_dir/jdk/$jdk_dir/bin:$PATH
+	export JAVA_HOME=$install_dir/jdk/$jdk_dir
+}
+
+install_JDK8

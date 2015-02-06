@@ -1,0 +1,7 @@
+#!/bin/bash
+#set -e
+export jdk_archive=jdk-8u31-linux-x64.tar.gz
+export jdk_dir=jdk1.8.0_31
+mkdir -p tmp/build
+bin/compile tmp/build    
+rm -rf tmp/build

@@ -1,0 +1,60 @@
+Name: springboot
+Cartridge-Short-Name: SPRINGBOOT
+Display-Name: Springboot/JDK8
+Version: "0.0.1"
+Versions: ["0.0.1"]
+Website: https://github.com/shanmuha/openshift-springboot-cartridge
+Cartridge-Version: 0.0.1
+Cartridge-Vendor: shanmu
+Categories:
+  - service
+  - java8
+  - springboot
+  - web_framework
+Provides:
+  - springboot
+  - springboot(version) = 1.2.1
+  - Java
+  - Java(verison)=1.8.31
+Scaling:
+  Min: 1
+  Max: -1
+Publishes:
+  get-doc-root:
+    Type: "FILESYSTEM:doc-root"
+  publish-http-url:
+    Type: "NET_TCP:httpd-proxy-info"
+  publish-gear-endpoint:
+    Type: "NET_TCP:gear-endpoint-info"
+Subscribes:
+  set-db-connection-info:
+    Type: "ENV:NET_TCP:db:connection-info"
+    Required: false
+  set-mysql-connection-info:
+    Type: "NET_TCP:db:mysql"
+    Required : false
+  set-postgres-connection-info:
+    Type: "NET_TCP:db:postgres"
+    Required : false
+  set-nosql-db-connection-info:
+    Type: "ENV:NET_TCP:nosqldb:connection-info"
+    Required : false
+Group-Overrides:
+  - components:
+    - Java-1.8.31
+    - web_proxy
+Endpoints:
+  - Private-IP-Name:   IP
+    Private-Port-Name: PORT
+    Private-Port:      8080
+    Public-Port-Name:  PROXY_PORT
+    Mappings:
+      - Frontend:      ""
+        Backend:       ""
+        Options:       { websocket: true }
+      - Frontend:      "/health"
+        Backend:       ""
+        Options:       { health: true }
+Additional-Control-Actions:
+  - threaddump
+Install-Build-Required: true
