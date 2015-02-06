@@ -10,17 +10,24 @@ install_dir=$OPENSHIFT_SPRINGBOOT_DIR
 export PATH=$PATH:/sbin
 
 install_JDK8() {
-	echo "---->Downloading java 1.8.31"
-	
-	cd $bin_dir
-	curl -LO -H "Cookie: oraclelicense=accept-securebackup-cookie"  http://download.oracle.com/otn-pub/java/jdk/8u31-b13/$jdk-archive
-	if [ ! -d "$install_dir/jdk" ]; then
-    	mkdir $install_dir/jdk
-    fi
-	cd $install_dir/jdk
-	tar xvfz $bin_dir/$jdk_archive
-	export PATH=$install_dir/jdk/$jdk_dir/bin:$PATH
-	export JAVA_HOME=$install_dir/jdk/$jdk_dir
+	if [! -e "$install_dir/jdk/$jdk_dir/bin/java" ]; then
+		echo "---->Downloading and installing java $jdk_dir"	
+		cd $bin_dir
+		curl -LO -H "Cookie: oraclelicense=accept-securebackup-cookie"  http://download.oracle.com/otn-pub/java/jdk/8u31-b13/$jdk_archive
+		if [ ! -d "$install_dir/jdk" ]; then
+    		mkdir $install_dir/jdk
+    	else
+    		echo "  --> deleting old jdk versions"
+    		rm -rf $install_dir/jdk
+    		mkdir $install_dir/jdk
+    	fi
+		cd $install_dir/jdk
+		tar xvfz $bin_dir/$jdk_archive
+		export PATH=$install_dir/jdk/$jdk_dir/bin:$PATH
+		export JAVA_HOME=$install_dir/jdk/$jdk_dir
+	else
+		echo "---->Java $jdk_dir already installed"
+	fi
 }
 
 install_JDK8

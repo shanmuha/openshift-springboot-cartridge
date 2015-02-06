@@ -15,7 +15,7 @@ function startSpringBoot() {
         echo "using profile ${BOOT_PROFILE}"
         echo "using java from `which java`"
         cd $OPENSHIFT_REPO_DIR
-        nohup java -jar target/*.jar --spring.profiles.active=${BOOT_PROFILE} &
+        nohup $JAVA_HOME/bin/java -jar target/*.jar --spring.profiles.active=${BOOT_PROFILE} &
     else
         echo "SpringBoot binaries missing"
     fi
