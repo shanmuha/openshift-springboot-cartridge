@@ -10,7 +10,7 @@ install_dir=$OPENSHIFT_SPRINGBOOT_DIR
 export PATH=$PATH:/sbin
 
 install_JDK8() {
-	if [! -e "$install_dir/jdk/$jdk_dir/bin/java" ]; then
+	if [ ! -e "$install_dir/jdk/$jdk_dir/bin/java" ]; then
 		echo "---->Downloading and installing java $jdk_dir"	
 		cd $bin_dir
 		curl -LO -H "Cookie: oraclelicense=accept-securebackup-cookie"  http://download.oracle.com/otn-pub/java/jdk/8u31-b13/$jdk_archive
