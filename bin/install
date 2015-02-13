@@ -2,6 +2,7 @@
 #set -e
 export jdk_archive=jdk-8u31-linux-x64.tar.gz
 export jdk_dir=jdk1.8.0_31
+export mvn_ver=3.2.5
 mkdir -p tmp/build
 bin/compile tmp/build    
 rm -rf tmp/build

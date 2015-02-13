@@ -4,8 +4,10 @@ source $OPENSHIFT_CARTRIDGE_SDK_BASH
 
 export jdk_archive=jdk-8u31-linux-x64.tar.gz
 export jdk_dir=jdk1.8.0_31
+export mvn_ver=3.2.5
 export JAVA_HOME=$OPENSHIFT_SPRINGBOOT_DIR/jdk/$jdk_dir
-export PATH=$JAVA_HOME/bin:$PATH
+export M2_HOME=$OPENSHIFT_SPRINGBOOT_DIR/mvn/apache-maven-$mvn_ver
+export PATH=$JAVA_HOME/bin:$M2_HOME/bin:$PATH
 
 BOOT_PROFILE=${BOOT_PROFILE:-dev}
 
@@ -15,7 +17,7 @@ function startSpringBoot() {
         echo "using profile ${BOOT_PROFILE}"
         echo "using java from `which java`"
         cd $OPENSHIFT_REPO_DIR
-        nohup $JAVA_HOME/bin/java -jar target/*.jar --spring.profiles.active=${BOOT_PROFILE} &
+        nohup java -jar target/*.jar --spring.profiles.active=${BOOT_PROFILE} &
     else
         echo "SpringBoot binaries missing"
     fi

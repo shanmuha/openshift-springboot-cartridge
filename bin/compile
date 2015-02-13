@@ -30,4 +30,25 @@ install_JDK8() {
 	fi
 }
 
+install_maven() {
+	if [ ! -e "$isntall_dir/mvn/apache-maven-$mvn_ver/bin/mvn" ]; then
+		echo "---->Downloading and isntalling maven $ maven_dir"
+		cd $bin_dir
+		curl -LO "http://apache.mirror.anlx.net/maven/maven-3/$mvn_ver/binaries/apache-maven-$mvn_ver-bin.tar.gz"
+                if [ ! -d "$install_dir/mvn" ]; then
+			mkdir $install_dir/mvn
+		else
+			echo " ---> deleting old mvn versions"
+                        rm -rf $install_dir/mvn
+                        mkdir $install_dir/mvn
+		fi
+		cd $install_dir/mvn
+		tar  xvfz $bin_dir/apache-maven-$mvn_ver-bin.tar.gz
+		export M2_HOME=$install_dir/mvn/apache-maven-$mvn_ver
+	else
+		echo "---->Maven $mvn_ver already installed"
+	fi
+}
+
 install_JDK8
+install_maven
