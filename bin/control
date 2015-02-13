@@ -39,7 +39,7 @@ function build_Springboot()
        if [ -f "$OPENSHIFT_REPO_DIR/pom.xml" ]; then
                echo "----> Building SpringBoot with Maven"
                cd $OPENSHIFT_REPO_DIR
-               mvn package -s $OPENSHIFT_SPRINGBOOT_DIR/m2/settings.xml -DskipTests=true
+               mvn clean package -s $OPENSHIFT_SPRINGBOOT_DIR/m2/settings.xml -DskipTests=true
        else
                echo "xxxxx> Missing pom file"
        fi
